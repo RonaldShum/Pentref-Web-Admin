@@ -153,13 +153,24 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
         $scope.refreshTTOMTS = function(){
             $scope.toTaiOObject.monToSat = $scope.tTOMTSLocalArray;
             $scope.toTaiOObject.$save();
-        }
+        };
         //To Tai O Sunday And Public Holiday
         $scope.addTimeTTOSAPH = function(){
             console.log($scope.tTOSAPHTime);
             $scope.tTOSAPHLocalArray.push($scope.tTOSAPHTime);
             $scope.tTOSAPHTime = "";
             console.log($scope.tTOSAPHLocalArray);
+            $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
+            $scope.toTaiOObject.$save();
+        }
+
+        $scope.deleteTimeTTOSAPH = function(time){
+            $scope.tTOSAPHLocalArray.splice($scope.tTOSAPHLocalArray.indexOf(time),1);
+            $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
+            $scope.toTaiOObject.$save();
+        }
+
+        $scope.refreshTTOSAPH = function(){
             $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
             $scope.toTaiOObject.$save();
         }

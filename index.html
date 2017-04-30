@@ -1,0 +1,53 @@
+<html>
+
+    <head>Pentref Web Admin</head>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="ng-file-upload-shim.js"></script> <!-- for no html5 browsers support -->
+    <script src="ng-file-upload.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script  src=index.js></script>
+    <script>
+    // Initialize Firebase
+    // TODO: Replace with your project's customized code snippet
+    var config = {
+        apiKey: "AIzaSyDlUNvf4spE3--0MULHXmbn3EIodGtXDAU",
+        authDomain: "pentref-ccf8e.firebaseapp.com",
+        databaseURL: "https://pentref-ccf8e.firebaseio.com",
+        projectId: "pentref-ccf8e",
+        storageBucket: "pentref-ccf8e.appspot.com",
+        messagingSenderId: "1090547724167"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <body>
+        <div ng-app="sampleApp" ng-controller="SampleCtrl">
+            <div ng-hide="user">
+                Email:<input ng-model="inputEmail"></input>
+                Password:<input ng-model="inputPassword"></input>
+                <button ng-click="login()">Login</button>
+            </div>
+            <button ng-show="user" ng-click="logout()">Signout</button>
+            <div ng-show="user">
+            <p>Poi</p>
+            <ol>
+                <li ng-repeat="poi in poisArray">
+                    <a href="poi.html?q={{poi.$id}}">{{poi.name}}</a>
+                    <button ng-click="poisArray.$remove(poi)">Delete Poi</button>
+                </li>
+            </ol>
+            <p>Transport</p>
+            <ol>
+                <li ng-repeat="tran in transArray">
+                    <a href="transport.html?q={{tran.$id}}">{{tran.routeNumber}}</a>
+                </li>
+            </ol>
+            </div>
+        </div>
+    </body>
+
+</html>

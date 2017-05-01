@@ -32,6 +32,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
                 try{
                     if($scope.transportObject.fromTaiO.monToSat != null){
                         $scope.fTOMTSLocalArray = $scope.transportObject.fromTaiO.monToSat;
+                        $scope.fTOMTSLocalArray.sort();
                     }else{
                         $scope.fTOMTSLocalArray =[];
                     }
@@ -42,6 +43,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
                 try{
                     if($scope.transportObject.fromTaiO.sunAndPublicHoliday != null){
                         $scope.fTOSAPHLocalArray = $scope.transportObject.fromTaiO.sunAndPublicHoliday;
+                        $scope.fTOSAPHLocalArray.sort();
                     }else{
                         $scope.fTOSAPHLocalArray = [];
                     }
@@ -52,6 +54,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
                 try{
                     if($scope.transportObject.toTaiO.sunAndPublicHoliday != null){
                         $scope.tTOMTSLocalArray = $scope.transportObject.toTaiO.monToSat;
+                        $scope.tTOMTSLocalArray.sort();
                     }else{
                         $scope.tTOMTSLocalArray = [];
                     }
@@ -62,6 +65,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
                 try{
                     if($scope.transportObject.toTaiO.sunAndPublicHoliday != null){
                         $scope.tTOSAPHLocalArray = $scope.transportObject.toTaiO.sunAndPublicHoliday;
+                        $scope.tTOSAPHLocalArray.sort();
                     }else{
                         $scope.tTOSAPHLocalArray = [];
                     }
@@ -88,18 +92,21 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
         $scope.addTimeFTOMTS = function(){
             $scope.fTOMTSLocalArray.push($scope.fTOMTSTime);
             $scope.fTOMTSTime = "";
+            $scope.fTOMTSLocalArray.sort();
             $scope.fromtaioObject.monToSat = $scope.fTOMTSLocalArray;
             $scope.fromtaioObject.$save();
         }
 
         $scope.deleteTimeFTOMTS = function(time){
             $scope.fTOMTSLocalArray.splice($scope.fTOMTSLocalArray.indexOf(time),1);
+            $scope.fTOMTSLocalArray.sort();
             $scope.fromtaioObject.monToSat = $scope.fTOMTSLocalArray;
             $scope.fromtaioObject.$save();
         }
         
         $scope.refreshFTOMTS = function(){
             //console.log($scope.testLocalArray);
+            console.log($scope.fTOMTSLocalArray);
             $scope.fromtaioObject.monToSat = $scope.fTOMTSLocalArray;
             $scope.fromtaioObject.$save();
 
@@ -111,12 +118,14 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
         $scope.addTimeFTOSAPH = function(){
             $scope.fTOSAPHLocalArray.push($scope.fTOSAPHTime);
             $scope.fTOSAPHTime = "";
+            $scope.fTOSAPHLocalArray.sort();
             $scope.fromtaioObject.sunAndPublicHoliday = $scope.fTOSAPHLocalArray;
             $scope.fromtaioObject.$save();
         }        
 
         $scope.deleteTimeFTOSAPH = function(time){
             $scope.fTOSAPHLocalArray.splice($scope.fTOSAPHLocalArray.indexOf(time),1);
+            $scope.fTOSAPHLocalArray.sort();
             $scope.fromtaioObject.sunAndPublicHoliday = $scope.fTOSAPHLocalArray;
             $scope.fromtaioObject.$save();
         };
@@ -139,6 +148,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
             console.log($scope.tTOMTSTime);
             $scope.tTOMTSLocalArray.push($scope.tTOMTSTime);
             $scope.tTOMTSTime = "";
+            $scope.tTOMTSLocalArray.sort();
             console.log($scope.tTOMTSLocalArray);
             $scope.toTaiOObject.monToSat = $scope.tTOMTSLocalArray;
             $scope.toTaiOObject.$save();
@@ -146,6 +156,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
 
         $scope.deleteTimeTTOMTS = function(time){
             $scope.tTOMTSLocalArray.splice($scope.tTOMTSLocalArray.indexOf(time),1);
+            $scope.tTOMTSLocalArray.sort();
             $scope.toTaiOObject.monToSat = $scope.tTOMTSLocalArray;
             $scope.toTaiOObject.$save();
         };
@@ -159,6 +170,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
             console.log($scope.tTOSAPHTime);
             $scope.tTOSAPHLocalArray.push($scope.tTOSAPHTime);
             $scope.tTOSAPHTime = "";
+            $scope.tTOSAPHLocalArray.sort();
             console.log($scope.tTOSAPHLocalArray);
             $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
             $scope.toTaiOObject.$save();
@@ -166,6 +178,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
 
         $scope.deleteTimeTTOSAPH = function(time){
             $scope.tTOSAPHLocalArray.splice($scope.tTOSAPHLocalArray.indexOf(time),1);
+            $scope.tTOSAPHLocalArray.sort();
             $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
             $scope.toTaiOObject.$save();
         }

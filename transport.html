@@ -34,65 +34,71 @@
     </script>
     <body>
         <div ng-app="transportApp" ng-controller="transportCtrl">
-            <form novalidate class="simple-form">
-                <label>RouteNumber:<input ng-model="transportObject.routeNumber" ng-change="transportObject.$save()"></input></label><br />
-                <label>Non Tai O Dest station:<input ng-model="transportObject.nonTaiODestinationStation" ng-change="transportObject.$save()"></input></label><br />
-                <label>Adult Price:<input type="number" ng-model="transportObject.price.adultPrice" ng-change="transportObject.$save()"></input><br />
-                <label>Child Price:<input type="number" ng-model="transportObject.price.childPrice" ng-change="transportObject.$save()"></input><br />
-            </form>
+            <!--<form novalidate class="simple-form">-->
+                RouteNumber:<input ng-model="transportObject.routeNumber" ng-change="transportObject.$save()"></input><br />
+                Non Tai O Dest station:<input ng-model="transportObject.nonTaiODestinationStation" ng-change="transportObject.$save()"></input><br />
+                Adult Price:<input type="number" ng-model="transportObject.price.adultPrice" ng-change="transportObject.$save()"></input><br />
+                Child Price:<input type="number" ng-model="transportObject.price.childPrice" ng-change="transportObject.$save()"></input><br />
+                Type Enum:<input type="number" ng-model="transportObject.typeEnum" ng-change="transportObject.$save()"></input>
+            <!--</form>-->
+            <br />
             From Tai O Mon To Sat
             <div ng-repeat="time in fTOMTSLocalArray track by $index">
-                <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
-                    <div class="col-md-3" style=" overflow: hidden">
-                        <input ng-model="fTOMTSLocalArray[$index]" ng-change="refreshFTOMTS()"></input>
-                        <button ng-click="deleteTimeFTOMTS(time)">Delete</button>
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                        <input ng-model="fTOMTSLocalArray[$index]" ng-change="refreshFTOMTS()" maxlength="5" size="4"></input>
+                        
+                        <button ng-click="deleteTimeFTOMTS(time)">X</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" style="overflow: hidden">
-                <input ng-model="fTOMTSTime"></input><button ng-click="addTimeFTOMTS()">Add</button>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="fTOMTSTime"></input><button ng-click="addTimeFTOMTS()">Add</button>
             </div>
             <div ng-class="{'row': true}"></div><br />
         
             From Tai O Sunday And Public Holiday
             <div ng-repeat="time in fTOSAPHLocalArray track by $index">
-                <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
-                    <div class="col-md-3" style=" overflow: hidden">
-                        <input ng-model="fTOSAPHLocalArray[$index]" ng-change="refreshFTOSAPH()"></input>
-                        <button ng-click="deleteTimeFTOSAPH(time)">Delete</button>
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                            <input maxlength="5" size="4" ng-model="fTOSAPHLocalArray[$index]" ng-change="refreshFTOSAPH()"></input>
+                            <button  ng-click="deleteTimeFTOSAPH(time)">X</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" style="overflow: hidden">
-                <input ng-model="fTOSAPHTime"></input><button ng-click="addTimeFTOSAPH()">Add</button>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="fTOSAPHTime"></input>
+                <button maxlength="5" ng-click="addTimeFTOSAPH()">Add</button>
             </div>
             <div ng-class="{'row': true}"></div><br />
 
             To Tai O Mon To Sat
             <div ng-repeat="time in tTOMTSLocalArray track by $index">
-                <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
-                    <div class="col-md-3" style=" overflow: hidden">
-                        <input ng-model="tTOMTSLocalArray[$index]" ng-change="refreshTTOMTS()"></input>
-                        <button ng-click="deleteTimeTTOMTS(time)">Delete</button>
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                        <input maxlength="5" size="4" ng-model="tTOMTSLocalArray[$index]" ng-change="refreshTTOMTS()"></input>
+                        <button ng-click="deleteTimeTTOMTS(time)">X</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" style="overflow: hidden">
-                <input ng-model="tTOMTSTime"></input><button ng-click="addTimeTTOMTS()">Add</button>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="tTOMTSTime"></input>
+                <button ng-click="addTimeTTOMTS()">Add</button>
             </div>
             <div ng-class="{'row': true}"></div><br />
 
             To Tai O Sunday And Public Holiday
             <div ng-repeat="time in tTOSAPHLocalArray track by $index">
-                <div ng-class="{ 'row': ($index + 1) % 4 == 0 }">
-                    <div class="col-md-3" style=" overflow: hidden">
-                        <input ng-model="tTOSAPHLocalArray[$index]" ng-change="refreshTTOSAPH()"></input>
-                        <button ng-click="deleteTimeTTOSAPH(time)">Delete</button>
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                        <input maxlength="5" size="4" ng-model="tTOSAPHLocalArray[$index]" ng-change="refreshTTOSAPH()"></input>
+                        <button ng-click="deleteTimeTTOSAPH(time)">X</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3" style="overflow: hidden">
-                <input ng-model="tTOSAPHTime"></input><button ng-click="addTimeTTOSAPH()">Add</button>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="tTOSAPHTime"></input>
+                <button ng-click="addTimeTTOSAPH()">Add</button>
             </div>
             
         </div>

@@ -51,7 +51,7 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
 
                 try{
                     if($scope.transportObject.toTaiO.sunAndPublicHoliday != null){
-                        $scope.tTOMTSLocalArray = $scope.transportObject.toTaiO.sunAndPublicHoliday;
+                        $scope.tTOMTSLocalArray = $scope.transportObject.toTaiO.monToSat;
                     }else{
                         $scope.tTOMTSLocalArray = [];
                     }

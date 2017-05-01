@@ -48,18 +48,18 @@
                 </li>
             </ol>
             Add new transport
-            <form>
+            <form name="addTransport" ng-submit="submitNewTransport(addTransport.$valid)">
                 Route Nymber:<br>
-                <input type="text" ng-model="newTransport.routeNumber"></input><br>
+                <input type="text" ng-model="newTransport.routeNumber" required></input><br>
                 nonTaiODestinationStation:<br>
-                <input type="text" ng-model="newTransport.nonTaiODestinationStation"></input><br>
+                <input type="text" ng-model="newTransport.nonTaiODestinationStation" required></input><br>
                 adult Price:<br>
-                <input type="number" ng-model="newTransport.price.adultPrice"></input><br>
+                <input type="number" step="0.1" ng-model="newTransport.price.adultPrice" required></input><br>
                 child Price:<br>
-                <input type="number" ng-model="newTransport.price.childPrice"></input><br>
+                <input type="number" step="0.1" ng-model="newTransport.price.childPrice" required></input><br>
                 TypeEnum:<br>
-                <input type="number" ng-model="newTransport.typeEnum"></input><br>
-                <button ng-click="submitNewTransport()">Submit</button>
+                <input type="number" ng-model="newTransport.typeEnum" required></input><br>
+                <input type="submit" id="submit" value="Submit" />
             </form>
             </div>
         </div>

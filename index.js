@@ -67,13 +67,13 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
             });
 
         $scope.newTransport = {
-            "nonTaiODestinationStation": "Default",
+            "nonTaiODestinationStation": null,
             "price": {
-                "adultPrice": 2,
-                "childPrice": 3
+                "adultPrice": null,
+                "childPrice": null
             },
-            "typeEnum": 0,
-            "routeNumber": "Default"
+            "typeEnum": null,
+            "routeNumber": null
         };
         
 
@@ -96,12 +96,10 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
             firebaseObject.$save();
         }
 
-        $scope.submitNewTransport = function(){
+        $scope.submitNewTransport = function(valid){
             //Data checking
-            if($scope.newTransport.nonTaiODestinationStation != "" 
-            && $scope.newTransport.price.adultPrice != null 
-            && $scope.newTransport.price.childPrice !=null
-            && $scope.newTransport.typeEnum != null){
+            console.log(valid);
+            if(valid){
 
                 $scope.transportLocalArray.push($scope.newTransport);
                 console.log($scope.transportLocalArray);

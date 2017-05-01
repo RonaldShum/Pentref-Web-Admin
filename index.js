@@ -7,8 +7,8 @@ app.factory("Auth", ["$firebaseAuth",
   }
 ]);
 
-app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth",
-    function($scope, $firebaseArray, $firebaseAuth){
+app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$firebaseObject",
+    function($scope, $firebaseArray, $firebaseAuth,$firebaseObject){
         var ref = firebase.database().ref();
         $scope.authObj = $firebaseAuth();
         $scope.user = $scope.authObj.$getAuth();
@@ -66,6 +66,53 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth",
                 console.log(err);
             });
 
+        $scope.newTransport = {
+            "nonTaiODestinationStation": "Default",
+            "price": {
+                "adultPrice": 2,
+                "childPrice": 3
+            },
+            "typeEnum": 0,
+            "routeNumber": "Default"
+        };
+        var transportLocalArray;
+
+        var firebaseObject = $firebaseObject(ref);
+        firebaseObject.$loaded()
+            .then(function(){
+                console.log(firebaseObject);
+                if(firebaseObject.Transport != null){
+                    transportLocalArray = firebaseObject.Transport;
+                }else{
+                    transportLocalArray = [];
+                }
+                console.log(transportLocalArray);
+            });
+        
+        $scope.submitNewTransport = function(){
+            //Data checking
+            if($scope.newTransport.nonTaiODestinationStation != "" 
+            && $scope.newTransport.price.adultPrice != null 
+            && $scope.newTransport.price.childPrice !=null
+            && $scope.newTransport.typeEnum != null){
+
+                transportLocalArray.push($scope.newTransport);
+                console.log(transportLocalArray);
+                //set all newTrasnport value to null
+                $scope.newTransport = {
+                    "nonTaiODestinationStation": null,
+                    "price": {
+                        "adultPrice": null,
+                        "childPrice": null
+                    },
+                    "typeEnum": null,
+                    "routeNumber": null
+                };
+                firebaseObject.$save();
+            }else{
+                console.log("please enter correct value");
+            }
+        }
 
     }
 ]);

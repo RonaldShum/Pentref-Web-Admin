@@ -46,6 +46,20 @@
                     <a href="transport.html?q={{tran.$id}}">{{tran.routeNumber}}</a>
                 </li>
             </ol>
+            Add new transport
+            <form>
+                Route Nymber:<br>
+                <input type="text" ng-model="newTransport.routeNumber"></input><br>
+                nonTaiODestinationStation:<br>
+                <input type="text" ng-model="newTransport.nonTaiODestinationStation"></input><br>
+                adult Price:<br>
+                <input type="number" ng-model="newTransport.price.adultPrice"></input><br>
+                child Price:<br>
+                <input type="number" ng-model="newTransport.price.childPrice"></input><br>
+                TypeEnum:<br>
+                <input type="number" ng-model="newTransport.typeEnum"></input><br>
+                <button ng-click="submitNewTransport()">Submit</button>
+            </form>
             </div>
         </div>
     </body>

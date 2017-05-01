@@ -33,7 +33,8 @@
                 <label>image:</label><br />
                 <button ng-click="submit()">Submit</button>
             </form>
-            Change photo:<input type="file"  id="input"  accept="image/*">
+            <img ng-show="photoSelected" style="width: 50%; height: 50%" ng-src="{{image_source}}"><br>
+            Change photo:<input type="file"  id="input" onchange="angular.element(this).scope().setFile(this)"  accept="image/*">
             <button ng-click="uploadPic()">upload picture</button>
         </div>
     </body>

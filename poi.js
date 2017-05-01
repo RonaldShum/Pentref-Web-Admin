@@ -14,8 +14,23 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
             } 
             alert('Query Variable ' + variable + ' not found');
         };
-          
+        $scope.photoSelected = false;
+
         $scope.picFile = "hi";
+
+        $scope.setFile = function(element) {
+            $scope.photoSelected = true;
+            $scope.currentFile = element.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(event) {
+                $scope.image_source = event.target.result
+                $scope.$apply()
+
+            }
+            // when the file is read it triggers the onload event above.
+            reader.readAsDataURL(element.files[0]);
+        };
         
         $scope.authObj = $firebaseAuth();
         var poiId = getQueryVariable("q");

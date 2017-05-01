@@ -28,7 +28,7 @@
         <div ng-app="sampleApp" ng-controller="SampleCtrl">
             <div ng-hide="user">
                 Email:<input ng-model="inputEmail"></input>
-                Password:<input ng-model="inputPassword"></input>
+                Password:<input type="password" ng-model="inputPassword"></input>
                 <button ng-click="login()">Login</button>
             </div>
             <button ng-show="user" ng-click="logout()">Signout</button>

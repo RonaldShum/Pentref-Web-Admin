@@ -14,6 +14,7 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
             } 
             alert('Query Variable ' + variable + ' not found');
         };
+          
         $scope.picFile = "hi";
         
         $scope.authObj = $firebaseAuth();

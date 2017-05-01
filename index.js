@@ -75,20 +75,27 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
             "typeEnum": 0,
             "routeNumber": "Default"
         };
-        var transportLocalArray;
+        
 
         var firebaseObject = $firebaseObject(ref);
         firebaseObject.$loaded()
             .then(function(){
                 console.log(firebaseObject);
                 if(firebaseObject.Transport != null){
-                    transportLocalArray = firebaseObject.Transport;
+                    $scope.transportLocalArray = firebaseObject.Transport;
                 }else{
-                    transportLocalArray = [];
+                    $scope.transportLocalArray = [];
                 }
-                console.log(transportLocalArray);
+                console.log($scope.transportLocalArray);
             });
-        
+        $scope.deleteTransport = function(tran){
+            console.log("delete Transport pressed");
+            $scope.transportLocalArray.splice($scope.transportLocalArray.indexOf(tran),1);
+            console.log($scope.transportLocalArray);
+            firebaseObject.Transport = $scope.transportLocalArray;
+            firebaseObject.$save();
+        }
+
         $scope.submitNewTransport = function(){
             //Data checking
             if($scope.newTransport.nonTaiODestinationStation != "" 
@@ -96,8 +103,8 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
             && $scope.newTransport.price.childPrice !=null
             && $scope.newTransport.typeEnum != null){
 
-                transportLocalArray.push($scope.newTransport);
-                console.log(transportLocalArray);
+                $scope.transportLocalArray.push($scope.newTransport);
+                console.log($scope.transportLocalArray);
                 //set all newTrasnport value to null
                 $scope.newTransport = {
                     "nonTaiODestinationStation": null,
@@ -108,6 +115,7 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
                     "typeEnum": null,
                     "routeNumber": null
                 };
+                firebaseObject.Transport = $scope.transportLocalArray;
                 firebaseObject.$save();
             }else{
                 console.log("please enter correct value");

@@ -42,8 +42,9 @@
             </ol>
             <p>Transport</p>
             <ol>
-                <li ng-repeat="tran in transArray">
-                    <a href="transport.html?q={{tran.$id}}">{{tran.routeNumber}}</a>
+                <li ng-repeat="tran in transportLocalArray track by $index">
+                    <a href="transport.html?q={{$index}}">{{tran.routeNumber}}</a>
+                    <button ng-click="deleteTransport(tran)">Delete</button>
                 </li>
             </ol>
             Add new transport

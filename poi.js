@@ -92,6 +92,8 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
             }
             });
 
+        $scope.messages = $firebaseArray(firebase.database().ref().child("POI messages").child(poiId));
+
        
         //download the data into a local object
         // firebase.auth().signInWithEmailAndPassword("sss@fff", 1234)

@@ -35,7 +35,11 @@
             </form>
             <img ng-show="photoSelected" style="width: 50%; height: 50%" ng-src="{{image_source}}"><br>
             Change photo:<input type="file"  id="input" onchange="angular.element(this).scope().setFile(this)"  accept="image/*">
-            <button ng-click="uploadPic()">upload picture</button>
+            <button ng-click="uploadPic()">upload picture</button><br><br>
+            List of message from user:<br/>
+            <ul>
+                <li ng-repeat="message in messages">{{message.$value}}</li>
+            </ul>
         </div>
     </body>
 </html>

@@ -120,5 +120,19 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
             }
         }
 
+        //Message Test
+        
+        $scope.sendMessage = function(){
+            var messageArray = $firebaseArray(firebase.database().ref().child("POI messages").child($scope.messagePoiID));
+            messageArray.$loaded()
+                .then(function(){
+                    console.log(messageArray);
+                    messageArray.$add($scope.Message);
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+        };
+
     }
 ]);

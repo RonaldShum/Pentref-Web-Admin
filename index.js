@@ -121,6 +121,14 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
         }
 
         //Message Test
+        $scope.newMessage = {
+            "poiId": null,
+            "userId": null,
+            "userName": null,
+            "rating": null,
+            "title": null,
+            "description": null
+        };
         
         $scope.sendMessage = function(){
             var messageArray = $firebaseArray(firebase.database().ref().child("POI messages").child($scope.messagePoiID));

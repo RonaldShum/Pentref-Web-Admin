@@ -79,6 +79,38 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
                 console.log(err);
             });
 
+        $scope.isTimeVaild = function(time){
+            if(time.slice(0,2) >= "00" && time.slice(0,2) < "24" 
+            && time.slice(3,5) < "60" && time.slice(3,5)>="00"
+            && time.length === 5
+            && time.slice(2,3) === ":"){
+                return true;
+            }else{
+                return false;
+            }
+        };
+
+        /** 
+         * @param localArray 
+         * @param fBO
+         * @param time
+         * @param isMonToSat
+         */
+        $scope.addTime = function(localArray,fBO,time,isMonToSat){
+            if($scope.isTimeVaild(time)){
+                localArray.push(time);
+                localArray.sort();
+                if(isMonToSat){
+                    fBO.monToSat = localArray;
+                    fBO.$save();
+                }else{
+                    fBO.sunAndPublicHoliday = localArray;
+                    fBO.$save();
+                }
+            }else{
+                 alert("Time Invaild");
+            }
+        }
 
         
         //From Tai O Mon To Sat
@@ -90,11 +122,15 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
             });
         
         $scope.addTimeFTOMTS = function(){
-            $scope.fTOMTSLocalArray.push($scope.fTOMTSTime);
+            $scope.addTime($scope.fTOMTSLocalArray,$scope.fromtaioObject,$scope.fTOMTSTime,true);
             $scope.fTOMTSTime = "";
-            $scope.fTOMTSLocalArray.sort();
-            $scope.fromtaioObject.monToSat = $scope.fTOMTSLocalArray;
-            $scope.fromtaioObject.$save();
+            // if($scope.isTimeVaild($scope.fTOMTSTime)){
+            //     $scope.fTOMTSLocalArray.push($scope.fTOMTSTime);
+            //     $scope.fTOMTSTime = "";
+            //     $scope.fTOMTSLocalArray.sort();
+            //     $scope.fromtaioObject.monToSat = $scope.fTOMTSLocalArray;
+            //     $scope.fromtaioObject.$save();
+            // }
         }
 
         $scope.deleteTimeFTOMTS = function(time){
@@ -105,22 +141,28 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
         }
         
         $scope.refreshFTOMTS = function(){
+            //TODO: do data checking
             //console.log($scope.testLocalArray);
             console.log($scope.fTOMTSLocalArray);
             $scope.fromtaioObject.monToSat = $scope.fTOMTSLocalArray;
             $scope.fromtaioObject.$save();
-
         };
+
+
 
         //End region
 
         //From Tai O Sun And public Holiday
         $scope.addTimeFTOSAPH = function(){
-            $scope.fTOSAPHLocalArray.push($scope.fTOSAPHTime);
+            $scope.addTime($scope.fTOSAPHLocalArray,$scope.fromtaioObject,$scope.fTOSAPHTime,false);
             $scope.fTOSAPHTime = "";
-            $scope.fTOSAPHLocalArray.sort();
-            $scope.fromtaioObject.sunAndPublicHoliday = $scope.fTOSAPHLocalArray;
-            $scope.fromtaioObject.$save();
+            // if($scope.isTimeVaild($scope.fTOSAPHTime)){
+            //     $scope.fTOSAPHLocalArray.push($scope.fTOSAPHTime);
+            //     $scope.fTOSAPHTime = "";
+            //     $scope.fTOSAPHLocalArray.sort();
+            //     $scope.fromtaioObject.sunAndPublicHoliday = $scope.fTOSAPHLocalArray;
+            //     $scope.fromtaioObject.$save();
+            // }
         }        
 
         $scope.deleteTimeFTOSAPH = function(time){
@@ -145,13 +187,15 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
             });
         
         $scope.addTimeTTOMTS = function(){
-            console.log($scope.tTOMTSTime);
-            $scope.tTOMTSLocalArray.push($scope.tTOMTSTime);
+            $scope.addTime($scope.tTOMTSLocalArray,$scope.toTaiOObject,$scope.tTOMTSTime,true);
             $scope.tTOMTSTime = "";
-            $scope.tTOMTSLocalArray.sort();
-            console.log($scope.tTOMTSLocalArray);
-            $scope.toTaiOObject.monToSat = $scope.tTOMTSLocalArray;
-            $scope.toTaiOObject.$save();
+            // console.log($scope.tTOMTSTime);
+            // $scope.tTOMTSLocalArray.push($scope.tTOMTSTime);
+            // $scope.tTOMTSTime = "";
+            // $scope.tTOMTSLocalArray.sort();
+            // console.log($scope.tTOMTSLocalArray);
+            // $scope.toTaiOObject.monToSat = $scope.tTOMTSLocalArray;
+            // $scope.toTaiOObject.$save();
         };
 
         $scope.deleteTimeTTOMTS = function(time){
@@ -167,13 +211,15 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
         };
         //To Tai O Sunday And Public Holiday
         $scope.addTimeTTOSAPH = function(){
-            console.log($scope.tTOSAPHTime);
-            $scope.tTOSAPHLocalArray.push($scope.tTOSAPHTime);
+            $scope.addTime($scope.tTOSAPHLocalArray,$scope.toTaiOObject,$scope.tTOSAPHTime,false);
             $scope.tTOSAPHTime = "";
-            $scope.tTOSAPHLocalArray.sort();
-            console.log($scope.tTOSAPHLocalArray);
-            $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
-            $scope.toTaiOObject.$save();
+            // console.log($scope.tTOSAPHTime);
+            // $scope.tTOSAPHLocalArray.push($scope.tTOSAPHTime);
+            // $scope.tTOSAPHTime = "";
+            // $scope.tTOSAPHLocalArray.sort();
+            // console.log($scope.tTOSAPHLocalArray);
+            // $scope.toTaiOObject.sunAndPublicHoliday = $scope.tTOSAPHLocalArray;
+            // $scope.toTaiOObject.$save();
         }
 
         $scope.deleteTimeTTOSAPH = function(time){
@@ -226,3 +272,6 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
 
     }
 ]);
+function tempFunction(num){
+    alert(num);
+};

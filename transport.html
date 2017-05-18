@@ -42,11 +42,12 @@
                 Type Enum:<input type="number" ng-model="transportObject.typeEnum" ng-change="transportObject.$save()"></input>
             <!--</form>-->
             <br />
-            From Tai O Mon To Sat
+            <button ng-click="isTimeVaild('01:59')" >Test</button>
+            From Tai O Mon To Sat <button ng-click="refreshFTOMTS()">Save</button>
             <div ng-repeat="time in fTOMTSLocalArray track by $index">
                 <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
                     <div class="col-md-2" style=" overflow: hidden">
-                        <input ng-model="fTOMTSLocalArray[$index]" ng-change="refreshFTOMTS()" maxlength="5" size="4"></input>
+                        <input ng-model="fTOMTSLocalArray[$index]"  maxlength="5" size="4"></input>
                         
                         <button ng-click="deleteTimeFTOMTS(time)">X</button>
                     </div>

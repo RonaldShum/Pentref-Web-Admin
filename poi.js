@@ -42,11 +42,37 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
         $scope.poiObject.$loaded()
             .then(function(){
                 console.log($scope.poiObject);
-                
+                //current photo on firebase
+                getCurrentPhoto();
             })
             .catch(function(err){
                 console.log(err);
             });
+        
+        var getCurrentPhoto = function(){
+            var storageRef = firebase.storage().ref('images/'+$scope.poiObject.headerImageFileName)
+                    .getDownloadURL().then(function(url) {
+                        // `url` is the download URL for 'images/stars.jpg'
+
+                        // This can be downloaded directly:
+                        var xhr = new XMLHttpRequest();
+                        xhr.responseType = 'blob';
+                        xhr.onload = function(event) {
+                            var blob = xhr.response;
+                            console.log("hihi");
+                        };
+                        xhr.open('GET', url);
+                        xhr.send();
+
+                        // Or inserted into an <img> element:
+                        var img = document.getElementById('currentPhoto');
+                        img.src = url;
+                        }).catch(function(error) {
+                        // Handle any errors
+                        console.log("hi");
+                        console.log(error)
+                });
+        };
         
         $scope.submit = function(){
             console.log("submit pressed");
@@ -73,7 +99,9 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
             var uploadTask = $scope.storage.$put(uploadPic,{contentType: uploadPic.type});
             uploadTask.$error(function(error){
                 console.error(error);
-            })
+            });
+            uploadTask.onSuccess
+
         };
 
         
@@ -94,17 +122,7 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
 
         $scope.messages = $firebaseArray(firebase.database().ref().child("POI messages").child(poiId));
 
-       
-        //download the data into a local object
-        // firebase.auth().signInWithEmailAndPassword("sss@fff", 1234)
-        // .then(function(authData) {
-        //     console.log("Logged in as:", authData.uid);
-        // }).catch(function(error) {
-        //     console.error("Authentication failed:", error);
-        // });
         
-
-        //upload image test
         
         
 

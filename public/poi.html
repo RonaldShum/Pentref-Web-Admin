@@ -1,0 +1,48 @@
+<html>
+    <head>Poi</head>
+     <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script  src=poi.js></script>
+    <script>
+    // Initialize Firebase
+    // TODO: Replace with your project's customized code snippet
+    var config = {
+        apiKey: "AIzaSyDlUNvf4spE3--0MULHXmbn3EIodGtXDAU",
+        authDomain: "pentref-ccf8e.firebaseapp.com",
+        databaseURL: "https://pentref-ccf8e.firebaseio.com",
+        projectId: "pentref-ccf8e",
+        storageBucket: "pentref-ccf8e.appspot.com",
+        messagingSenderId: "1090547724167"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <body>
+        <div ng-app="poiApp" ng-controller="poiCtrl">
+            <form novalidate class="simple-form">
+                <label>Name:<input ng-model="poiObject.name"></input></label><br />
+                <label>ChineseName:<input ng-model="poiObject.chineseName"></input></label><br />
+                <label>CategoryId:<input type="number" ng-model="poiObject.categoryId"></input></label><br />
+                <label>PhoneNumber:<input ng-model="poiObject.phoneNumber"></input></label><br />
+                <label>WebsiteUri:<input ng-model="poiObject.websiteUri"></input></label><br />
+                <label>address:<input ng-model="poiObject.address"></input></label><br />
+                <label>chineseAddress:<input ng-model="poiObject.chineseAddress"></input></label><br />
+                <label>image:</label><br />
+                <button ng-click="submit()">Submit</button>
+            </form>
+            Current photo:<br>
+            <img id="currentPhoto" style="width: 50%; height: 50%"><br>
+            Preview photo:<br>
+            <img ng-show="photoSelected" style="width: 50%; height: 50%" ng-src="{{image_source}}"><br>
+            Change photo:<input type="file"  id="input" onchange="angular.element(this).scope().setFile(this)"  accept="image/*">
+            <button ng-click="uploadPic()">upload picture</button><br><br>
+            List of message from user:<br/>
+            <ul>
+                <li ng-repeat="message in messages">{{message.$value}}</li>
+            </ul>
+        </div>
+    </body>
+</html>

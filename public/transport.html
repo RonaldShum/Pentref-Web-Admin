@@ -1,0 +1,107 @@
+<html>
+    <head>Transport</head>
+     <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+    <script  src=transport.js></script>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script>
+    // Initialize Firebase
+    // TODO: Replace with your project's customized code snippet
+    var config = {
+        apiKey: "AIzaSyDlUNvf4spE3--0MULHXmbn3EIodGtXDAU",
+        authDomain: "pentref-ccf8e.firebaseapp.com",
+        databaseURL: "https://pentref-ccf8e.firebaseio.com",
+        projectId: "pentref-ccf8e",
+        storageBucket: "pentref-ccf8e.appspot.com",
+        messagingSenderId: "1090547724167"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <body>
+        <div ng-app="transportApp" ng-controller="transportCtrl">
+            <!--<form novalidate class="simple-form">-->
+                RouteNumber:<input ng-model="transportObject.routeNumber" ng-change="transportObject.$save()"></input><br />
+                Non Tai O Dest station:<input ng-model="transportObject.nonTaiODestinationStation" ng-change="transportObject.$save()"></input><br />
+                Adult Price:<input type="number" ng-model="transportObject.price.adultPrice" ng-change="transportObject.$save()"></input><br />
+                Child Price:<input type="number" ng-model="transportObject.price.childPrice" ng-change="transportObject.$save()"></input><br />
+                Type Enum:<input type="number" ng-model="transportObject.typeEnum" ng-change="transportObject.$save()"></input>
+            <!--</form>-->
+            <br />
+            <button ng-click="isTimeVaild('01:59')" >Test</button>
+            From Tai O Mon To Sat <button ng-click="refreshFTOMTS()">Save</button>
+            <div ng-repeat="time in fTOMTSLocalArray track by $index">
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                        <input ng-model="fTOMTSLocalArray[$index]"  maxlength="5" size="4"></input>
+                        
+                        <button ng-click="deleteTimeFTOMTS(time)">X</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="fTOMTSTime"></input><button ng-click="addTimeFTOMTS()">Add</button>
+            </div>
+            <div ng-class="{'row': true}"></div><br />
+        
+            From Tai O Sunday And Public Holiday
+            <div ng-repeat="time in fTOSAPHLocalArray track by $index">
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                            <input maxlength="5" size="4" ng-model="fTOSAPHLocalArray[$index]" ng-change="refreshFTOSAPH()"></input>
+                            <button  ng-click="deleteTimeFTOSAPH(time)">X</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="fTOSAPHTime"></input>
+                <button maxlength="5" ng-click="addTimeFTOSAPH()">Add</button>
+            </div>
+            <div ng-class="{'row': true}"></div><br />
+
+            To Tai O Mon To Sat
+            <div ng-repeat="time in tTOMTSLocalArray track by $index">
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                        <input maxlength="5" size="4" ng-model="tTOMTSLocalArray[$index]" ng-change="refreshTTOMTS()"></input>
+                        <button ng-click="deleteTimeTTOMTS(time)">X</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="tTOMTSTime"></input>
+                <button ng-click="addTimeTTOMTS()">Add</button>
+            </div>
+            <div ng-class="{'row': true}"></div><br />
+
+            To Tai O Sunday And Public Holiday
+            <div ng-repeat="time in tTOSAPHLocalArray track by $index">
+                <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
+                    <div class="col-md-2" style=" overflow: hidden">
+                        <input maxlength="5" size="4" ng-model="tTOSAPHLocalArray[$index]" ng-change="refreshTTOSAPH()"></input>
+                        <button ng-click="deleteTimeTTOSAPH(time)">X</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="overflow: hidden">
+                <input maxlength="5" size="4" ng-model="tTOSAPHTime"></input>
+                <button ng-click="addTimeTTOSAPH()">Add</button>
+            </div>
+            
+        </div>
+    </body>
+</html>

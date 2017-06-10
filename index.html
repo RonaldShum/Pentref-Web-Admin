@@ -11,6 +11,14 @@
     <!--Firebase-->
     <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
     <script  src=index.js></script>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
     // Initialize Firebase
     // TODO: Replace with your project's customized code snippet
@@ -26,48 +34,63 @@
     </script>
     <body>
         <div ng-app="sampleApp" ng-controller="SampleCtrl">
-            <div ng-hide="user">
+            <div ng-hide="user" class="input-group">
                 Email:<input ng-model="inputEmail"></input>
                 Password:<input type="password" ng-model="inputPassword"></input>
                 <button ng-click="login()">Login</button>
             </div>
-            <button ng-show="user" ng-click="logout()">Signout</button>
+            <button ng-show="user" ng-click="logout()" class="btn btn-warning">Signout</button>
             <div ng-show="user">
-            <p>Poi</p>
-            <ol>
-                <li ng-repeat="poi in poisArray">
-                    <a href="poi.html?q={{poi.$id}}">{{poi.name}}</a>
-                    <button ng-click="poisArray.$remove(poi)">Delete Poi</button>
-                </li>
-            </ol>
-            <p>Transport</p>
-            <ol>
-                <li ng-repeat="tran in transportLocalArray track by $index">
-                    <a href="transport.html?q={{$index}}">{{tran.routeNumber}}</a>
-                    <button ng-click="deleteTransport(tran)">Delete</button>
-                </li>
-            </ol>
-            Add new transport
+            <div class="jumbotron">
+                <h1>Poi</h1>
+                <h2>Points Of Interests</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-8" style="background-color:lavender;">
+                    <ul>
+                        <li class="list-group-item" ng-repeat="poi in poisArray">
+                            <a href="poi.html?q={{poi.$id}}">{{poi.name}}</a>
+                            <button ng-click="poisArray.$remove(poi)" class="btn btn-danger">Delete Poi</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <h1>Transport</h1>
+                <h2>Transportation Schedule</h2>
+            </div>
+            <div class="row">
+                <div class="col-sm-8" style="background-color:lavender;">
+                    <ul>
+                        <li class="list-group-item" ng-repeat="tran in transportLocalArray track by $index">
+                            <a href="transport.html?q={{$index}}">{{tran.routeNumber}}</a>
+                            <button ng-click="deleteTransport(tran)"  class="btn btn-danger">Delete</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="jumbotron">
+                <h2>New Transport</h2>
+                <h3>Adding New Transportation schedule</h3>
+            </div>
+             <div class="row">
+                <div class="col-sm-8" style="background-color:lavender;">
             <form name="addTransport" ng-submit="submitNewTransport(addTransport.$valid)">
-                Route Nymber:<br>
-                <input type="text" ng-model="newTransport.routeNumber" required></input><br>
-                nonTaiODestinationStation:<br>
-                <input type="text" ng-model="newTransport.nonTaiODestinationStation" required></input><br>
+                Route Number:<br>
+                <input type="text" ng-model="newTransport.routeNumber" class="form-control" required></input><br>
+                Depart from:<br>
+                <input type="text" ng-model="newTransport.nonTaiODestinationStation" class="form-control" required></input><br>
                 adult Price:<br>
-                <input type="number" step="0.1" ng-model="newTransport.price.adultPrice" required></input><br>
+                <input type="number" step="0.1" ng-model="newTransport.price.adultPrice"class="form-control" required></input><br>
                 child Price:<br>
-                <input type="number" step="0.1" ng-model="newTransport.price.childPrice" required></input><br>
+                <input type="number" step="0.1" ng-model="newTransport.price.childPrice" class="form-control" required></input><br>
                 TypeEnum:<br>
-                <input type="number" ng-model="newTransport.typeEnum" required></input><br>
+                <input type="number" ng-model="newTransport.typeEnum" class="form-control" required></input><br>
                 <input type="submit" id="submit" value="Submit" />
             </form>
             </div>
-            Message Test<br/>
-            POI ID:<br/>
-            <input type="text" ng-model="messagePoiID"></input><br/>
-            Message:<br/>
-            <input type="text" ng-model="Message"></input><br/>
-            <button ng-click="sendMessage()">send</button>
+            </div>
+            </div>
         </div>
     </body>
 

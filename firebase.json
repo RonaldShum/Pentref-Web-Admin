@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-{}
-=======
-{
-  "hosting": {
-    "public": "public",
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
->>>>>>> 4de14661de2bd80976b9aef8e65fdd814c134db8
+{"hosting": {
+    "public": "public"
+  }}

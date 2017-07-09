@@ -35,19 +35,19 @@
     <body>
         <div ng-app="transportApp" ng-controller="transportCtrl">
             <!--<form novalidate class="simple-form">-->
-                RouteNumber:<input ng-model="transportObject.routeNumber" ng-change="transportObject.$save()"></input><br />
-                Non Tai O Dest station:<input ng-model="transportObject.nonTaiODestinationStation" ng-change="transportObject.$save()"></input><br />
-                Adult Price:<input type="number" ng-model="transportObject.price.adultPrice" ng-change="transportObject.$save()"></input><br />
-                Child Price:<input type="number" ng-model="transportObject.price.childPrice" ng-change="transportObject.$save()"></input><br />
-                Type Enum:<input type="number" ng-model="transportObject.typeEnum" ng-change="transportObject.$save()"></input>
+                RouteNumber:<input ng-model="transportObject.routeNumber" ></input><br />
+                Non Tai O Dest station:<input ng-model="transportObject.nonTaiODestinationStation" ></input><br />
+                Adult Price:<input type="number" ng-model="transportObject.price.adultPrice" ></input><br />
+                Child Price:<input type="number" ng-model="transportObject.price.childPrice" ></input><br />
+                Type Enum:<input type="number" ng-model="transportObject.typeEnum" ></input><br />
+                <button ng-click="submitForm()">Submit</button><br />
             <!--</form>-->
             <br />
-            <button ng-click="isTimeVaild('01:59')" >Test</button>
-            From Tai O Mon To Sat <button ng-click="refreshFTOMTS()">Save</button>
+            From Tai O Mon To Sat 
             <div ng-repeat="time in fTOMTSLocalArray track by $index">
                 <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
                     <div class="col-md-2" style=" overflow: hidden">
-                        <input ng-model="fTOMTSLocalArray[$index]"  maxlength="5" size="4"></input>
+                        <input ng-model="fTOMTSLocalArray[$index]"  maxlength="5" size="4" disabled></input>
                         
                         <button ng-click="deleteTimeFTOMTS(time)">X</button>
                     </div>
@@ -62,7 +62,7 @@
             <div ng-repeat="time in fTOSAPHLocalArray track by $index">
                 <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
                     <div class="col-md-2" style=" overflow: hidden">
-                            <input maxlength="5" size="4" ng-model="fTOSAPHLocalArray[$index]" ng-change="refreshFTOSAPH()"></input>
+                            <input maxlength="5" size="4" ng-model="fTOSAPHLocalArray[$index]" disabled></input>
                             <button  ng-click="deleteTimeFTOSAPH(time)">X</button>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
             <div ng-repeat="time in tTOMTSLocalArray track by $index">
                 <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
                     <div class="col-md-2" style=" overflow: hidden">
-                        <input maxlength="5" size="4" ng-model="tTOMTSLocalArray[$index]" ng-change="refreshTTOMTS()"></input>
+                        <input maxlength="5" size="4" ng-model="tTOMTSLocalArray[$index]" disabled></input>
                         <button ng-click="deleteTimeTTOMTS(time)">X</button>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
             <div ng-repeat="time in tTOSAPHLocalArray track by $index">
                 <div ng-class="{ 'row': ($index + 1) % 6 == 0 }">
                     <div class="col-md-2" style=" overflow: hidden">
-                        <input maxlength="5" size="4" ng-model="tTOSAPHLocalArray[$index]" ng-change="refreshTTOSAPH()"></input>
+                        <input maxlength="5" size="4" ng-model="tTOSAPHLocalArray[$index]" disabled></input>
                         <button ng-click="deleteTimeTTOSAPH(time)">X</button>
                     </div>
                 </div>

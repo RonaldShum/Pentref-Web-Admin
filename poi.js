@@ -1,7 +1,7 @@
 var app = angular.module("poiApp",["firebase"]);
 
-app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebaseObject", "$firebaseStorage",
-    function($scope, $firebaseArray, $firebaseAuth, $firebaseObject, $firebaseStorage){
+app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebaseObject", "$firebaseStorage", "$window",
+    function($scope, $firebaseArray, $firebaseAuth, $firebaseObject, $firebaseStorage, $window){
         
         var getQueryVariable = function(variable) {
             var query = window.location.search.substring(1);
@@ -78,7 +78,9 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
             console.log("submit pressed");
             $scope.poiObject.$save().then(function(ref){
                 ref.key === $scope.poiObject;
+                $window.alert("Submit success")
                 console.log("SUccess!");
+
             }, function(err){
                 console.log(err);
             });
@@ -100,7 +102,11 @@ app.controller("poiCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebas
             uploadTask.$error(function(error){
                 console.error(error);
             });
-            uploadTask.onSuccess
+            uploadTask.$complete(function(Snapshot){
+                $window.alert("Upload Completed");
+                $window.location = $window.location;
+            });
+            
 
         };
 

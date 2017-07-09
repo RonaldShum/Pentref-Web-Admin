@@ -90,11 +90,19 @@ app.controller("SampleCtrl",["$scope", "$firebaseArray", "$firebaseAuth","$fireb
             });
         $scope.deleteTransport = function(tran){
             console.log("delete Transport pressed");
-            $scope.transportLocalArray.splice($scope.transportLocalArray.indexOf(tran),1);
-            console.log($scope.transportLocalArray);
-            firebaseObject.Transport = $scope.transportLocalArray;
-            firebaseObject.$save();
+            if(confirm("Delete?")){
+                $scope.transportLocalArray.splice($scope.transportLocalArray.indexOf(tran),1);
+                console.log($scope.transportLocalArray);
+                firebaseObject.Transport = $scope.transportLocalArray;
+                firebaseObject.$save();
+            }
         }
+        $scope.deletePoi = function(poi){
+            if(confirm("Delete?")){
+                $scope.poisArray.$remove(poi);
+                //need to remove photo too
+            }
+        };
 
         $scope.submitNewTransport = function(valid){
             //Data checking

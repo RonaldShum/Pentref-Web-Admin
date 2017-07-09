@@ -1,7 +1,7 @@
 var app = angular.module("transportApp",["firebase"]);
 
-app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebaseObject", "$firebaseStorage",
-    function($scope, $firebaseArray, $firebaseAuth, $firebaseObject, $firebaseStorage){
+app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$firebaseObject", "$firebaseStorage", "$window",
+    function($scope, $firebaseArray, $firebaseAuth, $firebaseObject, $firebaseStorage, $window){
         
         var getQueryVariable = function(variable) {
             var query = window.location.search.substring(1);
@@ -78,6 +78,16 @@ app.controller("transportCtrl",["$scope", "$firebaseArray", "$firebaseAuth", "$f
             .catch(function(err){
                 console.log(err);
             });
+
+        $scope.submitForm = function(){
+            $scope.transportObject.$save()
+                .then(function(ref){
+                    $window.alert("Submit successful");
+                },function(err){
+                    console.log("Error:",err);
+                });
+            
+        }
 
         $scope.isTimeVaild = function(time){
             if(time.slice(0,2) >= "00" && time.slice(0,2) < "24" 

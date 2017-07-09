@@ -1,17 +1,18 @@
 <html>
 
-    <head>Pentref Web Admin</head>
-    <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
-    <script src="ng-file-upload-shim.js"></script> <!-- for no html5 browsers support -->
-    <script src="ng-file-upload.js"></script>
 
-    <!-- AngularFire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
-    <!--Firebase-->
-    <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-    <script  src=index.js></script>
-    <!-- Latest compiled and minified CSS -->
+<!-- Angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="ng-file-upload-shim.js"></script>
+<!-- for no html5 browsers support -->
+<script src="ng-file-upload.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+<!--Firebase-->
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script src=index.js></script>
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -19,7 +20,7 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
+<script>
     // Initialize Firebase
     // TODO: Replace with your project's customized code snippet
     var config = {
@@ -32,67 +33,78 @@
     };
     firebase.initializeApp(config);
     </script>
-    <body>
-        <div ng-app="sampleApp" ng-controller="SampleCtrl">
-            <div ng-hide="user" class="input-group">
-                Email:<input ng-model="inputEmail"></input>
-                Password:<input type="password" ng-model="inputPassword"></input>
-                <button ng-click="login()">Login</button>
-            </div>
-            <button ng-show="user" ng-click="logout()" class="btn btn-warning">Signout</button>
-            <div ng-show="user">
-            <div class="jumbotron">
+
+<body>
+
+
+    <div ng-app="sampleApp" ng-controller="SampleCtrl">
+        <div class="page-header" ng-show="user">
+            <ul class="nav nav-pills">
+                <li class="active"><a data-toggle="pill" href="#poi">Poi</a></li>
+                <li><a data-toggle="pill" href="#transport">Transport</a></li>
+                <li><button ng-show="user" ng-click="logout()" class="btn btn-warning">Signout</button></li>
+            </ul>
+
+        </div>
+        <div ng-hide="user" class="input-group">
+            Email:<input ng-model="inputEmail"></input>
+            Password:<input type="password" ng-model="inputPassword"></input>
+            <button ng-click="login()">Login</button>
+        </div>
+
+        <div ng-show="user" class="tab-content">
+
+            <div id="poi" class="tab-pane fade in active">
                 <h1>Poi</h1>
                 <h2>Points Of Interests</h2>
-            </div>
-            <div class="row">
-                <div class="col-sm-8" style="background-color:lavender;">
-                    <ul>
-                        <li class="list-group-item" ng-repeat="poi in poisArray">
-                            <a href="poi.html?q={{poi.$id}}">{{poi.name}}</a>
-                            <button ng-click="poisArray.$remove(poi)" class="btn btn-danger">Delete Poi</button>
-                        </li>
-                    </ul>
+
+                <div class="row">
+                    <div class="col-sm-8" style="background-color:lavender;">
+                        <ul>
+                            <li class="list-group-item" ng-repeat="poi in poisArray">
+                                <a href="poi.html?q={{poi.$id}}">{{poi.name}}</a>
+                                <button ng-click="deletePoi(poi)" class="btn btn-danger">Delete Poi</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="jumbotron">
+            <div id="transport" class="tab-pane fade">
                 <h1>Transport</h1>
                 <h2>Transportation Schedule</h2>
-            </div>
-            <div class="row">
-                <div class="col-sm-8" style="background-color:lavender;">
-                    <ul>
-                        <li class="list-group-item" ng-repeat="tran in transportLocalArray track by $index">
-                            <a href="transport.html?q={{$index}}">{{tran.routeNumber}}</a>
-                            <button ng-click="deleteTransport(tran)"  class="btn btn-danger">Delete</button>
-                        </li>
-                    </ul>
+
+                <div class="row">
+                    <div class="col-sm-8" style="background-color:lavender;">
+                        <ul>
+                            <li class="list-group-item" ng-repeat="tran in transportLocalArray track by $index">
+                                <a href="transport.html?q={{$index}}">{{tran.routeNumber}}</a>
+                                <button ng-click="deleteTransport(tran)" class="btn btn-danger">Delete</button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="jumbotron">
+
                 <h2>New Transport</h2>
                 <h3>Adding New Transportation schedule</h3>
-            </div>
-             <div class="row">
-                <div class="col-sm-8" style="background-color:lavender;">
-            <form name="addTransport" ng-submit="submitNewTransport(addTransport.$valid)">
-                Route Number:<br>
-                <input type="text" ng-model="newTransport.routeNumber" class="form-control" required></input><br>
-                Depart from:<br>
-                <input type="text" ng-model="newTransport.nonTaiODestinationStation" class="form-control" required></input><br>
-                adult Price:<br>
-                <input type="number" step="0.1" ng-model="newTransport.price.adultPrice"class="form-control" required></input><br>
-                child Price:<br>
-                <input type="number" step="0.1" ng-model="newTransport.price.childPrice" class="form-control" required></input><br>
-                TypeEnum:<br>
-                <input type="number" ng-model="newTransport.typeEnum" class="form-control" required></input><br>
-                <input type="submit" id="submit" value="Submit" />
-            </form>
-            </div>
+
+                <div class="row">
+                    <div class="col-sm-8" style="background-color:lavender;">
+                        <form name="addTransport" ng-submit="submitNewTransport(addTransport.$valid)">
+                            Route Number:<br>
+                            <input type="text" ng-model="newTransport.routeNumber" class="form-control" required></input><br>                            Depart from:<br>
+                            <input type="text" ng-model="newTransport.nonTaiODestinationStation" class="form-control" required></input><br>                            adult Price:<br>
+                            <input type="number" step="0.1" ng-model="newTransport.price.adultPrice" class="form-control" required></input><br>                            child Price:<br>
+                            <input type="number" step="0.1" ng-model="newTransport.price.childPrice" class="form-control" required></input><br>                            TypeEnum:
+                            <br>
+                            <input type="number" ng-model="newTransport.typeEnum" class="form-control" required></input><br>
+                            <input type="submit" id="submit" value="Submit" />
+                        </form>
+                    </div>
+                </div>
 
             </div>
-            </div>
         </div>
-    </body>
+    </div>
+</body>
 
 </html>
